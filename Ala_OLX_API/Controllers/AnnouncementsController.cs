@@ -29,7 +29,7 @@ namespace Ala_OLX_API.Controllers
             return Ok(item);
         }
         [HttpPost]
-        public IActionResult Create(Announcement model)
+        public IActionResult Create([FromBody]Announcement model)
         {
             if (!ModelState.IsValid)
             {
@@ -40,7 +40,7 @@ namespace Ala_OLX_API.Controllers
             return Ok();
         }
         [HttpPut]
-        public IActionResult Edit(Announcement model)
+        public IActionResult Edit([FromBody]Announcement model)
         {
             if (!ModelState.IsValid)
             {
@@ -50,8 +50,8 @@ namespace Ala_OLX_API.Controllers
             ctx.SaveChanges();
             return Ok();
         }
-        [HttpDelete]
-        public IActionResult Delete(int Id)
+        [HttpDelete("{id}")]
+        public IActionResult Delete([FromRoute]int Id)
         {
             var item = ctx.Announcements.Find(Id);
             if(item == null) { return NotFound(); }
