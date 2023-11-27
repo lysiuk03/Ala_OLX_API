@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BusinessLogic.ApiModels.Announcements;
+using BusinessLogic.Dtos;
 using BusinessLogic.Interfaces;
 using DataAccess.Data.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -42,19 +43,20 @@ namespace BusinessLogic.Services
             ctx.SaveChanges();
         }
 
-        public List<Announcement> Get()
+        public List<AnnouncementDto> Get()
         {
-            return ctx.Announcements
+            var items= ctx.Announcements
                      .Include(x => x.region)
                      .Include(x => x.category)
                      .ToList();
+            return mapper.Map<List<AnnouncementDto>>(items);
         }
 
-        public Announcement? Get(int id)
+        public AnnouncementDto? Get(int id)
         {
             var item = ctx.Announcements.Find(id);
             if (item == null) { return null; }
-            return item;
+            return mapper.Map<AnnouncementDto>(item);
         }
     }
 }

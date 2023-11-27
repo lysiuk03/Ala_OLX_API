@@ -1,4 +1,5 @@
 ﻿using BusinessLogic.ApiModels.Announcements;
+using BusinessLogic.Dtos;
 using DataAccess.Data.Entities;
 using System;
 using System.Collections.Generic;
@@ -10,8 +11,8 @@ namespace BusinessLogic.Interfaces
 {
     public interface IAnnouncementsServices
     {
-        List<Announcement> Get();
-        Announcement? Get(int id);
+        List<AnnouncementDto> Get();
+        AnnouncementDto? Get(int id);
         void Create(CreateAnnouncementModel announcement);
         void Edit(EditAnnouncementModel announcement);
         void Delete(int id);
