@@ -1,4 +1,5 @@
-﻿using BusinessLogic.ApiModels.Announcements;
+﻿using AutoMapper;
+using BusinessLogic.ApiModels.Announcements;
 using BusinessLogic.Interfaces;
 using DataAccess.Data.Entities;
 using OLX_Ala.Data;
@@ -13,27 +14,16 @@ namespace BusinessLogic.Services
     public class AnnouncementsService : IAnnouncementsServices
     {
         private readonly AlaOlxDbContext ctx;
+        private readonly IMapper mapper;
 
-        public AnnouncementsService(AlaOlxDbContext ctx)
+        public AnnouncementsService(AlaOlxDbContext ctx,IMapper mapper)
         {
             this.ctx = ctx;
+            this.mapper = mapper;
         }
         public void Create(CreateAnnouncementModel announcement)
         {
-            var entity = new Announcement()
-            {
-                Name = announcement.Name,
-                Price = announcement.Price,
-                InStock = announcement.InStock,
-                ImageURL = announcement.ImageURL,
-                CategoryId = announcement.CategoryId,
-                RegionId = announcement.RegionId,
-                Discount = announcement.Discount,
-                Description = announcement.Description,
-                ContactName = announcement.ContactName,
-                Phone = announcement.Phone
-            };
-            ctx.Announcements.Add(entity);
+            ctx.Announcements.Add(mapper.Map<Announcement>(announcement));
             ctx.SaveChanges();
         }
 
@@ -47,21 +37,7 @@ namespace BusinessLogic.Services
 
         public void Edit(EditAnnouncementModel announcement)
         {
-            var entity = new Announcement()
-            {
-                Id = announcement.Id,
-                Name = announcement.Name,
-                Price = announcement.Price,
-                InStock = announcement.InStock,
-                ImageURL = announcement.ImageURL,
-                CategoryId = announcement.CategoryId,
-                RegionId = announcement.RegionId,
-                Discount = announcement.Discount,
-                Description = announcement.Description,
-                ContactName = announcement.ContactName,
-                Phone = announcement.Phone
-            };
-            ctx.Announcements.Update(entity);
+            ctx.Announcements.Update(mapper.Map<Announcement>(announcement));
             ctx.SaveChanges();
         }
 
