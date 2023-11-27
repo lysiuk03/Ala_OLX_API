@@ -2,6 +2,7 @@
 using BusinessLogic.ApiModels.Announcements;
 using BusinessLogic.Interfaces;
 using DataAccess.Data.Entities;
+using Microsoft.EntityFrameworkCore;
 using OLX_Ala.Data;
 using System;
 using System.Collections.Generic;
@@ -43,7 +44,10 @@ namespace BusinessLogic.Services
 
         public List<Announcement> Get()
         {
-            return ctx.Announcements.ToList();
+            return ctx.Announcements
+                     .Include(x => x.region)
+                     .Include(x => x.category)
+                     .ToList();
         }
 
         public Announcement? Get(int id)
