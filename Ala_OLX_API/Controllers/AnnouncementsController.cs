@@ -1,4 +1,5 @@
-﻿using DataAccess.Data.Entities;
+﻿using BusinessLogic.Interfaces;
+using DataAccess.Data.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OLX_Ala.Data;
@@ -9,24 +10,22 @@ namespace Ala_OLX_API.Controllers
     [ApiController]
     public class AnnouncementsController : ControllerBase
     {
-        private readonly AlaOlxDbContext ctx;
+        private readonly IAnnouncementsServices announcementsServices;
 
-        public AnnouncementsController(AlaOlxDbContext ctx)
+        public AnnouncementsController(IAnnouncementsServices announcementsServices)
         {
-            this.ctx = ctx;
+            this.announcementsServices = announcementsServices;
         }
 
         [HttpGet("all")]
         public IActionResult Get()
         {
-            return Ok(ctx.Announcements.ToList());
+            return Ok(announcementsServices.Get());
         }
         [HttpGet("{Id}")]
-        public IActionResult GetById(int Id)
+        public IActionResult GetById(int id)
         {
-            var item = ctx.Announcements.Find(Id);
-            if (item == null) { return NotFound();}
-            return Ok(item);
+            return Ok(announcementsServices.Get(id));
         }
         [HttpPost]
         public IActionResult Create([FromBody]Announcement model)
@@ -35,8 +34,7 @@ namespace Ala_OLX_API.Controllers
             {
                 return BadRequest();
             }
-            ctx.Announcements.Add(model);
-            ctx.SaveChanges();
+            announcementsServices.Create(model);
             return Ok();
         }
         [HttpPut]
@@ -46,17 +44,13 @@ namespace Ala_OLX_API.Controllers
             {
                 return BadRequest();
             }
-            ctx.Announcements.Update(model);
-            ctx.SaveChanges();
+            announcementsServices.Edit(model);
             return Ok();
         }
         [HttpDelete("{id}")]
-        public IActionResult Delete([FromRoute]int Id)
+        public IActionResult Delete([FromRoute]int id)
         {
-            var item = ctx.Announcements.Find(Id);
-            if(item == null) { return NotFound(); }
-            ctx.Announcements.Remove(item);
-            ctx.SaveChanges();
+            announcementsServices.Delete(id);
             return Ok();
         }
     }
