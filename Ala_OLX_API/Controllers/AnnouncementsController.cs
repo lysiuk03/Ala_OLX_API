@@ -1,4 +1,5 @@
-﻿using BusinessLogic.Interfaces;
+﻿using BusinessLogic.ApiModels.Announcements;
+using BusinessLogic.Interfaces;
 using DataAccess.Data.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -28,7 +29,7 @@ namespace Ala_OLX_API.Controllers
             return Ok(announcementsServices.Get(id));
         }
         [HttpPost]
-        public IActionResult Create([FromBody]Announcement model)
+        public IActionResult Create([FromBody]CreateAnnouncementModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -38,7 +39,7 @@ namespace Ala_OLX_API.Controllers
             return Ok();
         }
         [HttpPut]
-        public IActionResult Edit([FromBody]Announcement model)
+        public IActionResult Edit([FromBody]EditAnnouncementModel model)
         {
             if (!ModelState.IsValid)
             {

@@ -1,4 +1,5 @@
-﻿using BusinessLogic.Interfaces;
+﻿using BusinessLogic.ApiModels.Announcements;
+using BusinessLogic.Interfaces;
 using DataAccess.Data.Entities;
 using OLX_Ala.Data;
 using System;
@@ -17,9 +18,22 @@ namespace BusinessLogic.Services
         {
             this.ctx = ctx;
         }
-        public void Create(Announcement announcement)
+        public void Create(CreateAnnouncementModel announcement)
         {
-            ctx.Announcements.Add(announcement);
+            var entity = new Announcement()
+            {
+                Name = announcement.Name,
+                Price = announcement.Price,
+                InStock = announcement.InStock,
+                ImageURL = announcement.ImageURL,
+                CategoryId = announcement.CategoryId,
+                RegionId = announcement.RegionId,
+                Discount = announcement.Discount,
+                Description = announcement.Description,
+                ContactName = announcement.ContactName,
+                Phone = announcement.Phone
+            };
+            ctx.Announcements.Add(entity);
             ctx.SaveChanges();
         }
 
@@ -31,10 +45,23 @@ namespace BusinessLogic.Services
             ctx.SaveChanges();
         }
 
-        public void Edit(Announcement announcement)
+        public void Edit(EditAnnouncementModel announcement)
         {
-           
-            ctx.Announcements.Update(announcement);
+            var entity = new Announcement()
+            {
+                Id = announcement.Id,
+                Name = announcement.Name,
+                Price = announcement.Price,
+                InStock = announcement.InStock,
+                ImageURL = announcement.ImageURL,
+                CategoryId = announcement.CategoryId,
+                RegionId = announcement.RegionId,
+                Discount = announcement.Discount,
+                Description = announcement.Description,
+                ContactName = announcement.ContactName,
+                Phone = announcement.Phone
+            };
+            ctx.Announcements.Update(entity);
             ctx.SaveChanges();
         }
 
