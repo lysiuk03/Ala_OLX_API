@@ -51,7 +51,9 @@ namespace Ala_OLX_API.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete([FromRoute]int id)
         {
+            
             announcementsServices.Delete(id);
+           
             return Ok();
         }
     }

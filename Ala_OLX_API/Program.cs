@@ -1,3 +1,4 @@
+using Ala_OLX_API.Middlewares;
 using BusinessLogic.Interfaces;
 using BusinessLogic.Services;
 using Microsoft.EntityFrameworkCore;
@@ -32,9 +33,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseMiddleware<ExceptionMiddleware>();
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+
 
 app.MapControllers();
 

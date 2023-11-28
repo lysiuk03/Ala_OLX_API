@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BusinessLogic.ApiModels.Announcements;
 using BusinessLogic.Dtos;
+using BusinessLogic.Exceptions;
 using BusinessLogic.Interfaces;
 using DataAccess.Data.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +9,7 @@ using OLX_Ala.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -32,9 +34,10 @@ namespace BusinessLogic.Services
         public void Delete(int id)
         {
             var item = ctx.Announcements.Find(id);
-            if (item == null) { return; }
+            if (item == null) throw new HttpException("Announcement not found by Id!", HttpStatusCode.NotFound);
+
             ctx.Announcements.Remove(item);
-            ctx.SaveChanges();
+                ctx.SaveChanges();
         }
 
         public void Edit(EditAnnouncementModel announcement)
