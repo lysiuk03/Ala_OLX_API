@@ -58,7 +58,7 @@ namespace BusinessLogic.Services
         public AnnouncementDto? Get(int id)
         {
             var item = ctx.Announcements.Find(id);
-            if (item == null) { return null; }
+            if (item == null) throw new HttpException("Announcement not found by Id!", HttpStatusCode.NotFound);
             return mapper.Map<AnnouncementDto>(item);
         }
     }

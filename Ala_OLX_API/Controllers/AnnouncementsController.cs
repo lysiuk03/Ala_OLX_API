@@ -1,6 +1,7 @@
 ﻿using BusinessLogic.ApiModels.Announcements;
 using BusinessLogic.Interfaces;
 using DataAccess.Data.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OLX_Ala.Data;
@@ -48,6 +49,7 @@ namespace Ala_OLX_API.Controllers
             announcementsServices.Edit(model);
             return Ok();
         }
+        [Authorize]
         [HttpDelete("{id}")]
         public IActionResult Delete([FromRoute]int id)
         {

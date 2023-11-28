@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace OLX_Ala.Data
 {
-    public class AlaOlxDbContext : DbContext
+    public class AlaOlxDbContext : IdentityDbContext<User>
     {
         public AlaOlxDbContext()
         {
