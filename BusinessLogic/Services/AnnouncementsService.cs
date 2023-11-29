@@ -4,6 +4,7 @@ using BusinessLogic.Dtos;
 using BusinessLogic.Exceptions;
 using BusinessLogic.Interfaces;
 using DataAccess.Data.Entities;
+using DataAccess.Repositories;
 using Microsoft.EntityFrameworkCore;
 using OLX_Ala.Data;
 using System;
@@ -17,47 +18,45 @@ namespace BusinessLogic.Services
 {
     public class AnnouncementsService : IAnnouncementsServices
     {
-        private readonly AlaOlxDbContext ctx;
+        //private readonly AlaOlxDbContext ctx;
+        private readonly IRepository<Announcement> repository;
         private readonly IMapper mapper;
 
-        public AnnouncementsService(AlaOlxDbContext ctx,IMapper mapper)
+        public AnnouncementsService(IRepository<Announcement> repository, IMapper mapper)
         {
-            this.ctx = ctx;
+            this.repository = repository;
             this.mapper = mapper;
         }
         public void Create(CreateAnnouncementModel announcement)
         {
-            ctx.Announcements.Add(mapper.Map<Announcement>(announcement));
-            ctx.SaveChanges();
+           repository.Insert(mapper.Map<Announcement>(announcement));
+           repository.Save();
         }
 
         public void Delete(int id)
         {
-            var item = ctx.Announcements.Find(id);
+            var item = repository.GetByID(id);
             if (item == null) throw new HttpException("Announcement not found by Id!", HttpStatusCode.NotFound);
 
-            ctx.Announcements.Remove(item);
-                ctx.SaveChanges();
+           repository.Delete(item);
+            repository.Save();
         }
 
         public void Edit(EditAnnouncementModel announcement)
         {
-            ctx.Announcements.Update(mapper.Map<Announcement>(announcement));
-            ctx.SaveChanges();
+            repository.Update(mapper.Map<Announcement>(announcement));
+            repository.Save();
         }
 
         public List<AnnouncementDto> Get()
         {
-            var items= ctx.Announcements
-                     .Include(x => x.region)
-                     .Include(x => x.category)
-                     .ToList();
+            var items = repository.Get(includeProperties: "category,region");
             return mapper.Map<List<AnnouncementDto>>(items);
         }
 
         public AnnouncementDto? Get(int id)
         {
-            var item = ctx.Announcements.Find(id);
+            var item = repository.GetByID(id);
             if (item == null) throw new HttpException("Announcement not found by Id!", HttpStatusCode.NotFound);
             return mapper.Map<AnnouncementDto>(item);
         }
