@@ -9,7 +9,7 @@ using OLX_Ala.Data;
 
 #nullable disable
 
-namespace DataAccess.Migrations
+namespace Core.Migrations
 {
     [DbContext(typeof(AlaOlxDbContext))]
     [Migration("20231128155727_AddIdentity")]

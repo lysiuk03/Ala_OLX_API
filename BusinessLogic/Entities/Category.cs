@@ -1,10 +1,11 @@
-﻿namespace DataAccess.Data.Entities
+﻿namespace Core.Entities
 {
-    public class Region
+    public class Category
     {
         public int Id { get; set; }
         public string Name { get; set; }
 
         public ICollection<Announcement> Announcements { get; set; }
+
     }
 }

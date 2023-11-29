@@ -8,7 +8,7 @@ using OLX_Ala.Data;
 
 #nullable disable
 
-namespace DataAccess.Migrations
+namespace Core.Migrations
 {
     [DbContext(typeof(AlaOlxDbContext))]
     partial class AlaOlxDbContextModelSnapshot : ModelSnapshot

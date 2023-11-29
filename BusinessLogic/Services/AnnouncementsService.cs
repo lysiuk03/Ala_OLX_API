@@ -3,16 +3,9 @@ using BusinessLogic.ApiModels.Announcements;
 using BusinessLogic.Dtos;
 using BusinessLogic.Exceptions;
 using BusinessLogic.Interfaces;
-using DataAccess.Data.Entities;
-using DataAccess.Repositories;
-using Microsoft.EntityFrameworkCore;
-using OLX_Ala.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using Core.Entities;
+using Core.Repositories;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BusinessLogic.Services
 {

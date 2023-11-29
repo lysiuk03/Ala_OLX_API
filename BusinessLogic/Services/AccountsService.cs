@@ -1,14 +1,9 @@
 ﻿using BusinessLogic.ApiModels.Accounts;
 using BusinessLogic.Exceptions;
 using BusinessLogic.Interfaces;
-using DataAccess.Data.Entities;
+using Core.Entities;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BusinessLogic.Services
 {

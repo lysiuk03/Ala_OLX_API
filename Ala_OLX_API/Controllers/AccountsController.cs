@@ -1,7 +1,5 @@
 ﻿using BusinessLogic.ApiModels.Accounts;
 using BusinessLogic.Interfaces;
-using BusinessLogic.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ala_OLX_API.Controllers

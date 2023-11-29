@@ -1,8 +1,8 @@
 using Ala_OLX_API.Middlewares;
 using BusinessLogic.Interfaces;
 using BusinessLogic.Services;
-using DataAccess.Data.Entities;
-using DataAccess.Repositories;
+using Core.Entities;
+using Core.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using OLX_Ala.Data;
