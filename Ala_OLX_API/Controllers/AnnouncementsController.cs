@@ -22,9 +22,9 @@ namespace Ala_OLX_API.Controllers
             return Ok(announcementsServices.Get());
         }
         [HttpGet("{Id}")]
-        public IActionResult GetById(int id)
+        public IActionResult GetById(int Id)
         {
-            return Ok(announcementsServices.Get(id));
+            return Ok(announcementsServices.Get(Id));
         }
         [HttpPost]
         public IActionResult Create([FromBody]CreateAnnouncementModel model)
